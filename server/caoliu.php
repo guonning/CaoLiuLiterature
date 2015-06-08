@@ -38,6 +38,8 @@ class caoliu {
 			$content[] = str_replace('<br>', '', str_replace('<br><br>', '<br/>', $c->innertext));
 		}
 		$detail['content'] = $content;
+
+		$html->clear();
 		return $detail;
 	}
 

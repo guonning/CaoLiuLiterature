@@ -1,0 +1,3 @@
+<?php
+//000000003600a:8:{s:2:"id";s:1:"1";s:2:"ip";s:13:"192.168.0.106";s:4:"port";s:2:"80";s:7:"version";s:5:"2.0.0";s:15:"android_app_url";s:76:"http://gproxy1.sm.cn/t/12/28/xzns_uc_2.0.0_0507_1550_551740_1527323862f5.apk";s:11:"ios_app_url";s:76:"http://gproxy1.sm.cn/t/12/28/xzns_uc_2.0.0_0507_1550_551740_1527323862f5.ipa";s:11:"res_version";s:11:"0520hfand20";s:3:"key";s:24:"sdfasf484j4lpe8we4ev09as";}
+?>
