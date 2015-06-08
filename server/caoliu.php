@@ -31,7 +31,14 @@ class caoliu {
 		$detail_content = $this->_get($url);
 		$html = str_get_html($detail_content);
 
-		
+		$detail['title'] = $t['title'];
+		$contents = $html->find('div.tpc_content');
+		foreach( $contents as $c ) {
+			if (strlen($c->plaintext) < 500) continue;
+			$content[] = str_replace('<br>', '', str_replace('<br><br>', '<br/>', $c->innertext));
+		}
+		$detail['content'] = $content;
+		return $detail;
 	}
 
 
@@ -50,5 +57,5 @@ class caoliu {
 
 $c = new caoliu();
 $thread_list = $c->get_list(20);
-$thread_detail = $c->detail($thread_list[0]);
+$thread_detail = $c->detail($thread_list[8]);
 var_dump($thread_detail);
