@@ -30,12 +30,12 @@ class caoliu {
     public function detail($thread_url) {
         $url = $this->url . $thread_url;
         $detail_content = $this->_get($url);
-        $html = str_get_html($detail_content);
+        $html = str_get_html($detail_content, true, true, 'GB2312');
 
-        $detail['title'] = str_replace(' 草榴社區  - powered by phpwind.net', '', $html->find('title', 0)->plaintext);
+        $detail['title'] = $html->find('h4', 0)->innertext;
         $contents = $html->find('div.tpc_content');
         foreach( $contents as $c ) {
-            if (strlen($c->plaintext) < 100) continue;	//文学版块,去除小于100个文字的内容
+            if (strlen($c->plaintext) < 100) continue;	//鏂囧鐗堝潡,鍘婚櫎灏忎簬100涓枃瀛楃殑鍐呭
             $content[] = $this->remove_br($c->innertext);
         }
         $detail['content'] = $content;
@@ -53,7 +53,7 @@ class caoliu {
         $detail['title'] = $html->find('td.h', 0)->plaintext;
         $contents = $html->find('div.tpc_content li');
         foreach( $contents as $c ) {
-            if (strlen($c->plaintext) < 100) continue;	//文学版块,去除小于100个文字的内容
+            if (strlen($c->plaintext) < 100) continue;	//鏂囧鐗堝潡,鍘婚櫎灏忎簬100涓枃瀛楃殑鍐呭
             $content[] = $this->remove_br($c->innertext);
         }
         $detail['content'] = $content;
@@ -94,10 +94,10 @@ switch ( $act )
     case 'detail':
         $url = $_GET['url'];
         $data = $c->detail_mobile($url);
-        break;	
+        break;
     default:
         $data = array('err' => 1);
         break;
 }
-var_dump($data);
-//echo json_encode($data);
+//var_dump($data);
+echo json_encode($data, JSON_UNESCAPED_UNICODE);
