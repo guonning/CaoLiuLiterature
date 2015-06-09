@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+	<title>{$Think.config.SITE_NAME}网页游戏</title>	
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <title>网页游戏 - {$Think.config.SITE_NAME}网页游戏,全国最大的网页游戏平台,打开网页即可玩</title>
+        <link rel="shortcut icon" href="/favicon.ico"/>
+	   <link rel="stylesheet" href="__CSS__/login_reg.css"/>       
+       <script src="//libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
+       <script src="//libs.baidu.com/jquerytools/1.2.7/jquery.tools.min.js"></script>
+</head>
+<body>
+	<div class="middle_main middle_body">
+	<div class="header" id="header">
+		<div class="c_w fixed">
+			<a href="/" class="logo" title="{$Think.config.SITE_NAME}网页游戏" target="_blank">{$Think.config.SITE_NAME}网页游戏</a>
+			<ul class="menu_box">
+				<li class="current"><a href="/" class="menu"><span class="name">首页</span></a><em class="line"></em></li>
+				<li><a href="{:U('Center/index')}" class="menu" style="color:#f00">用户中心</a><em class="line"></em></li>
+				<li><a href="{$Think.config.RECHARGE_URL}" class="menu" target="_blank">充值中心</a><em class="line"></em></li>
+			</ul>
+		</div>
+	</div>
+	{__CONTENT__}	
+		<div class="footer">
+		<div class="cc">
+			<ul class="menu_box">
+				<li class="menu_list"><a href="#" class="menu" target="_blank">关于本站</a><em class="line"></em></li>
+				<li class="menu_list"><a href="#" class="menu" target="_blank">免责声明</a><em class="line"></em></li>
+				<li class="menu_list"><a href="#" class="menu" target="_blank">客服中心</a><em class="line"></em></li>
+				<li class="menu_list"><a href="#" class="menu" target="_blank">联系我们</a><em class="line"></em></li>
+				<li class="menu_list"><a href="#" class="menu" target="_blank">网页游戏</a><em class="line"></em></li>
+				<li class="menu_list"><a href="#" class="menu" target="_blank">商务合作</a><em class="line"></em></li>
+				<li class="menu_list"><a href="#" class="menu" target="_blank">诚聘英才</a></li>
+			</ul>
+			<div class="copyright">
+            			健康游戏忠告：抵制不良游戏 拒绝盗版游戏 注意自我保护 谨防受骗上当 适度游戏益脑 沉迷游戏伤身 合理安排时间 享受健康生活<br/>
+            			Copyright © 2006-2014 {$Think.config.SITE_NAME} 版权所有 翻版不究
+			</div>
+		</div>
+	</div>        
+        
+	</div>
+ </body>
+</html>

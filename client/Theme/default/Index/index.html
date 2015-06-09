@@ -1,0 +1,171 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>手机文学</title>
+	<meta name="keywords" content="{$Think.config.KEYWORDS}">
+	<meta name="description" content="{$Think.config.DESC}">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  user-scalable=0;" name="viewport" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name=" apple-mobile-web-app-status-bar-style" />
+    <meta content="telephone=no" name="format-detection" />
+    <link rel="stylesheet" href="__CSS__/base.css">
+    <link rel="stylesheet" href="__CSS__/common_home.css">
+    <link rel="stylesheet" href="http://m.chinaz.com/css/iconfont/iconfont.css">
+    <script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="__JS__/idangerous.swiper.min.js"></script>
+    <script type="text/javascript" src="__JS__/swipe.js"></script>
+    <script type="text/javascript" src="__JS__/common.js"></script>
+	<script type="text/javascript" src="__JS__/template-native.js"></script>
+</head>
+<body>
+    <div class="barMain">
+        <div class="boxMain">
+            <!--header Star -->
+            <header class="clearfix">
+                <h1>{$Think.config.SITE_NAME}</h1>
+                <div class="topMenu">
+                    <span><a href="/" title="首页"><i class="icon iconfont">&#xe6b0;</i></a></span><span><a href="http://so.chinaz.com/cse/search?q=%E7%AB%99%E9%95%BF%E4%B9%8B%E5%AE%B6&s=13215756937974215344&nsid=0" title="查找"><i class="icon iconfont">&#xf00d9;</i></a></span><span><a href="#" title="刷新">   <i class="icon iconfont">&#xe631;</i></a><span>
+                </div>    
+            </header>
+            <!--header End -->
+
+            <!--mainBox Star -->
+            <div class="mainBox">
+			
+                 <!--nav star -->
+				<nav>
+					<ul>
+						<li><a href="http://m.chinaz.com">文學交流區 </a></li>
+						<li><a href="http://m.tool.chinaz.com">技術討論區 </a></li>
+						<li><a href="http://m.sc.chinaz.com">達蓋爾的旗幟 </a></li>
+					</ul>
+				</nav>
+				 <!--nav end -->  
+
+				<div id="sliderTxt" class="sliderTxt swipe">
+                    <div class="swipeWrap">
+                        <ul class="swiper-wrapper tabTxtSwipe clearfix">
+                       <li class="swiper-slide current"><a href="#" data-alias="index">首页</a></li>
+                            <li class="swiper-slide"><a href="#" data-alias="web">建站</a></li>
+                            <li class="swiper-slide"><a href="#" data-alias="start">创业</a></li>
+							<li class="swiper-slide"><a href="#" data-alias="news">业界</a></li>
+                            <li class="swiper-slide"><a href="#" data-alias="biz">电商</a></li>
+                            <li class="swiper-slide"><a href="#" data-alias="manage">运营</a></li>
+                            <li class="swiper-slide"><a href="#" data-alias="digital">数码</a></li>
+                            <li class="swiper-slide"><a href="#" data-alias="free">资源</a></li>
+                            <li class="swiper-slide"><a href="#" data-alias="game">游戏</a></li>
+                            <li class="swiper-slide"><a href="#" data-alias="design">设计</a></li>
+                        </ul>
+                    </div>
+                    <a class="nextBtn" href="javascript:" onclick="swipe.next();"><i class="icon iconfont">&#xe62f;</i></a>
+                </div>
+				
+				<script type="text/html" id="listtpl">
+				<% for(var i=0; i< records.length; i++){ %>
+					<% if(records[i].chinaz_thumb == ""){ %>
+						<li class="txtBar">
+							<a class="linkBar" href="{:U('Index/detail')}?url=<%=records[i].url %>">
+								<h3><%=records[i].title %></h3>
+								<div class="extr clearfix"><p><span class="time fl"><%=records[i].time %></span></p><p><span class="time fr">[<%=records[i].catname %>]</span></p></div>
+							</a>
+						</li>
+					<% }else{ %>
+						<li class="imgBar">
+						<a class="linkBar clearfix"  href="{:U('Index/detail')}?url=<%=records[i].url %>">
+							<div class="imgInfo">
+								<img src="<%=records[i].chinaz_thumb %>" title="<%=records[i].title %>">
+							</div> 					
+							<div class="txtInfo">
+								<h3><%=records[i].title %></h3>
+							  <div class="extr clearfix"><p><span class="time fl"><%=records[i].time %></span></p><p><span class="time fr">[<%=records[i].catname %>]</span></p></div>
+							</div>
+
+						</a>       
+						</li>
+					<% } %>
+				<% } %>
+				</script>
+				<script type="text/javascript">
+				$(function(){
+					// 加载首个tag
+					$.getJSON('{:U('Index/ajax')}?alias=index&page=1', function(data){
+							var temphtml = template('listtpl', data);
+							$('#listwrap').html(temphtml);
+						});
+					$('#sliderTxt>div > ul > li.swiper-slide > a').on('click', function(){
+						$('#loadmore').html('<a href="#"><input type="hidden" id="curpage1" value="2" /><input type="hidden" id="curpage2" value="1" /><input type="hidden" id="pages1" value="0" />加载更多中。。。</a>');
+						var obj = $(this);
+						obj.parent('li').addClass('current');
+						obj.parent('li').siblings('li').removeClass('current');
+						var alias = obj.attr('data-alias');
+						$.getJSON('{:U('Index/ajax')}?alias=' + alias + '&page=1', function(data){
+							var temphtml = template('listtpl', data);
+							$('#listwrap').html(temphtml);
+						});
+						return false;
+					});
+					
+					$(window).scroll(function(){
+						
+						var alias = $('#sliderTxt > div > ul > li.current > a').attr('data-alias');
+						
+						var scroH = $(window).scrollTop(); 
+						
+						var hh = scroH - $('#listwrap').height();
+						if(scroH >= 300){
+							$('#sliderTxt').css({'position':'fixed', 'top':0});
+							$('.nextBtn').css({'position':'fixed'});
+						}else{
+							$('#sliderTxt').css({'position':'relative', 'top':'none'});
+							$('.nextBtn').css({'position':'absolute'});
+						}						
+						if(hh >= -800){
+							var curpage1 = parseInt($('#curpage1').val(), 10);
+							var curpage2 = parseInt($('#curpage2').val(), 10);
+							var pages1 = parseInt($('#pages1').val(), 10);
+							if(pages1 && pages1 < curpage1){
+								if(alias == 'index'){
+									$('#loadmore').html('<a href="http://m.chinaz.com/rank.php">查看排行榜</a>');
+								}else{
+									$('#loadmore').html('<a href="http://m.chinaz.com/' + alias + '/?page=' + curpage1 + '">查看更多</a>');
+								}
+							}else{
+								$('#curpage2').val(curpage1);
+								if(curpage2 < curpage1){
+									$.getJSON('{:U('Index/ajax')}?alias=' + alias + '&page=' + curpage1, function(data){
+										$('#pages1').val(parseInt(data.pages, 10));
+										$('#curpage1').val(parseInt(data.nextpage, 10));
+										var temphtml = template('listtpl', data);
+										$('#listwrap').append(temphtml);
+									});
+								}
+							}
+						}	
+						
+					});					
+				});
+				</script>
+				
+                <!--articleBar Star -->
+                <ul class="articleBar" id="listwrap">
+					
+                </ul>
+                <!--articleBar End -->
+
+                <div id="loadmore" class="topBarLink tc">
+                    <a href="#"><input type="hidden" id="curpage1" value="2" /><input type="hidden" id="curpage2" value="1" />
+  <input type="hidden" id="pages1" value="0" />加载更多中。。。</a>
+                </div>                
+
+            </div>
+            <!--mainBox End -->
+        </div>
+
+        <!--footer Star -->
+        <footer>
+            <p>CopyRight 2002-2015 {$Think.config.SITE_NAME}</p>		
+        </footer> 
+        <!--footer End -->
+                   </div>       
+</body>
+</html>
